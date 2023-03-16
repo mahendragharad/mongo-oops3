@@ -1,0 +1,37 @@
+import pymongo
+class mongoDB :
+
+    def __init__(self , userid , password ) :
+        self.userid = userid 
+        self.password = password 
+    
+    def connect(self) :
+        print("This function is used to connect the Database")
+        client = pymongo.MongoClient("mongodb+srv://" + self.userid + ":" + self.password + "@cluster0.xdwsiqj.mongodb.net/?retryWrites=true&w=majority")
+        return client 
+    
+    def insert(self , data ):
+        self.data = data 
+
+        # Instablishing connection 
+        conn = self.connect() 
+
+        # creating the database  
+        Data_base = conn['New_database2']
+
+        # Creating another file inside database 
+        col = Data_base['Details_part2']
+
+        # Inserting the data inside database 
+        col.insert_one(self.data)
+        print("This function is used to insert the data")
+
+
+# creating the object 
+obj1 = mongoDB("mahendragharad035" , "mahendra1234")
+
+# calling methods using object 
+obj1.connect()
+
+# calling insert function 
+obj1.insert({"name " : "mahendra " , "goal " : "To become datascientist" , "profession " : "student"})
